@@ -8,7 +8,7 @@ export function ContactSection() {
       icon: MapPin,
       title: "Location",
       content: "Mississippi St., Riverfront Corporate City (Crocodile Park), Block 27 Lot 11, Maa, Davao City",
-      link: "https://www.google.com/maps/search/?api=1&query=Mississippi+St.,+Riverfront+Corporate+City,+Block+27+Lot+11,+Maa,+Davao+City",
+      link: "https://maps.app.goo.gl/ToXZC3VnJTTFEK1q9",
     },
     {
       icon: Phone,
@@ -76,7 +76,7 @@ export function ContactSection() {
           >
             <div className="aspect-[4/3] rounded-lg overflow-hidden border-2 border-white/10">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.6826419875!2d125.61243!3d7.0644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDMnNTEuOCJOIDEyNcKwMzYnNDQuNyJF!5e0!3m2!1sen!2sph!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3959.240187937018!2d125.5964275!3d7.0981359!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f96d07bf29992d%3A0xcc5e7242d761dcad!2sCeramic%20Pro%20Davao!5e0!3m2!1sen!2sph!4v1768836850133!5m2!1sen!2sph"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

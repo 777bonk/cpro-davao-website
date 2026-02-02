@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "./ui/button";
 import { RotateCw, Sun, Moon, Sparkles } from "lucide-react";
+import { CarSideSelector, CarSide } from "./CarSideSelector";
+
 
 type ColorOption = {
   name: string;
@@ -18,9 +20,10 @@ type FinishType = {
 
 export function CarConfigurator() {
   const [selectedColor, setSelectedColor] = useState("black");
-  const [selectedTint, setSelectedTint] = useState(100);
   const [selectedFinish, setSelectedFinish] = useState("gloss");
   const [lightingMode, setLightingMode] = useState<"day" | "night">("day");
+  const [carSide, setCarSide] = useState<CarSide>("left");
+
 
   const scrollToQuote = () => {
     const element = document.getElementById("quote");
@@ -100,14 +103,19 @@ export function CarConfigurator() {
     { name: "Chrome", value: "chrome", effect: "brightness(1.3) contrast(1.2) saturate(0.7)" },
   ];
 
-  const tintLevels = [100, 80, 70, 60, 50, 40];
+  const carImages: Record<CarSide, string> = {
+  "front and rear": "/car/fnr.png",
+  left: "/car/left.png",
+  right: "/car/right.png",
+  top: "/car/top.png",
+};
+
 
   const currentColor = colors.find((c) => c.value === selectedColor) || colors[0];
   const currentFinish = finishes.find((f) => f.value === selectedFinish) || finishes[0];
 
   const resetConfiguration = () => {
     setSelectedColor("black");
-    setSelectedTint(100);
     setSelectedFinish("gloss");
     setLightingMode("day");
   };
@@ -156,30 +164,30 @@ export function CarConfigurator() {
         >
           {/* Lighting Mode Toggle */}
           <div className="absolute top-4 right-4 z-20 flex gap-2">
-            <Button
-              size="sm"
-              onClick={() => setLightingMode("day")}
-              className={`${
-                lightingMode === "day"
-                  ? "bg-[#E41E6A] text-white"
-                  : "bg-[#1A1A1A] text-[#C0C0C0] border border-white/10"
-              } transition-all duration-300`}
-            >
-              <Sun size={16} className="mr-1" />
-              Day
-            </Button>
-            <Button
-              size="sm"
-              onClick={() => setLightingMode("night")}
-              className={`${
-                lightingMode === "night"
-                  ? "bg-[#E41E6A] text-white"
-                  : "bg-[#1A1A1A] text-[#C0C0C0] border border-white/10"
-              } transition-all duration-300`}
-            >
-              <Moon size={16} className="mr-1" />
-              Night
-            </Button>
+              <Button
+                size="sm"
+                onClick={() => setLightingMode("day")}
+                className={`${
+                  lightingMode === "day"
+                    ? "bg-[#E41E6A] text-white"
+                    : "bg-[#1A1A1A] text-[#C0C0C0] border border-white/10"
+                } transition-all duration-300`}
+              >
+                <Sun size={16} className="mr-1" />
+                Day
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => setLightingMode("night")}
+                className={`${
+                  lightingMode === "night"
+                    ? "bg-[#E41E6A] text-white"
+                    : "bg-[#1A1A1A] text-[#C0C0C0] border border-white/10"
+                } transition-all duration-300`}
+              >
+                <Moon size={16} className="mr-1" />
+                Night
+              </Button>
           </div>
 
           {/* Car Container */}
@@ -212,14 +220,22 @@ export function CarConfigurator() {
                 className="relative"
               >
                 {/* Base Car Image */}
-                <img
-                  src="https://images.unsplash.com/photo-1583573736485-4add9bc7ac0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjYXIlMjBzaWRlJTIwdmlldyUyMHN0dWRpb3xlbnwxfHx8fDE3NjEyMDg4NTF8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Luxury Car"
-                  className="w-full h-auto transition-all duration-700"
-                  style={{
-                    filter: `${combinedFilter} ${lightingFilter}`,
-                  }}
-                />
+<AnimatePresence mode="wait">
+  <motion.img
+    key={carSide}
+    src={carImages[carSide]}
+    alt={`Car ${carSide} view`}
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -40 }}
+    transition={{ duration: 0.4 }}
+    className="w-full h-auto"
+    style={{
+      filter: `${combinedFilter} ${lightingFilter}`,
+    }}
+  />
+</AnimatePresence>
+
 
                 {/* Color Overlay for enhanced realism */}
                 {currentColor.overlay && (
@@ -234,42 +250,6 @@ export function CarConfigurator() {
                   />
                 )}
 
-                {/* Window Tint Overlays */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selectedTint}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 - selectedTint / 100 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0 pointer-events-none"
-                  >
-                    {/* Front Windows Tint */}
-                    <div
-                      className="absolute"
-                      style={{
-                        top: "28%",
-                        left: "32%",
-                        width: "10%",
-                        height: "20%",
-                        background: "rgba(0, 0, 0, 0.9)",
-                        clipPath: "polygon(0% 0%, 100% 10%, 100% 90%, 0% 100%)",
-                      }}
-                    />
-                    {/* Rear Windows Tint */}
-                    <div
-                      className="absolute"
-                      style={{
-                        top: "30%",
-                        right: "36%",
-                        width: "12%",
-                        height: "18%",
-                        background: "rgba(0, 0, 0, 0.9)",
-                        clipPath: "polygon(0% 15%, 100% 0%, 100% 100%, 0% 85%)",
-                      }}
-                    />
-                  </motion.div>
-                </AnimatePresence>
 
                 {/* Gloss/Shine Effect */}
                 {selectedFinish === "gloss" || selectedFinish === "chrome" ? (
@@ -280,13 +260,18 @@ export function CarConfigurator() {
                   />
                 ) : null}
               </motion.div>
-
+          {/* Car Side Selector */}
+          <div>
+            <CarSideSelector
+              value={carSide}
+              onChange={setCarSide}
+            />
+          </div>
               {/* Current Config Label */}
               <div className="absolute bottom-4 left-4 bg-[#1A1A1A]/90 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-2">
                 <p className="text-[#C0C0C0] text-sm">
                   <span className="text-[#E41E6A]">{currentColor.name}</span> •{" "}
-                  <span className="text-white">{currentFinish.name}</span> •{" "}
-                  <span className="text-white">{selectedTint}% Tint</span>
+                  <span className="text-white">{currentFinish.name}</span>
                 </p>
               </div>
             </div>
@@ -301,6 +286,7 @@ export function CarConfigurator() {
           viewport={{ once: true }}
           className="max-w-5xl mx-auto space-y-8"
         >
+
           {/* Color Selection */}
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -339,28 +325,6 @@ export function CarConfigurator() {
             </div>
           </div>
 
-          {/* Tint Selection */}
-          <div>
-            <h3 className="text-white mb-4">Window Tint Level</h3>
-            <div className="flex flex-wrap gap-2 justify-center">
-              {tintLevels.map((tint) => (
-                <motion.button
-                  key={tint}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setSelectedTint(tint)}
-                  className={`px-6 py-3 rounded-lg transition-all duration-300 ${
-                    selectedTint === tint
-                      ? "bg-[#E41E6A] text-white shadow-lg shadow-[#E41E6A]/50"
-                      : "bg-[#1A1A1A] text-[#C0C0C0] border border-white/10 hover:border-[#E41E6A]/50"
-                  }`}
-                >
-                  {tint}%
-                </motion.button>
-              ))}
-            </div>
-          </div>
-
           {/* Finish Type */}
           <div>
             <h3 className="text-white mb-4">PPF Finish Type</h3>
@@ -384,18 +348,18 @@ export function CarConfigurator() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button
               onClick={resetConfiguration}
               variant="outline"
-              className="border-2 border-white/20 text-white hover:bg-white/10 px-8 py-6 transition-all duration-300"
+              className="border-2 border-white/20 text-white hover:bg-white/10 px-8 py-3 rounded-lg transition-all duration-300 flex items-center justify-center"
             >
-              <RotateCw className="mr-2" size={20} />
-              Reset Configuration
+              <RotateCw className="mr-2" size={18} />
+              Reset
             </Button>
             <Button
               onClick={scrollToQuote}
-              className="bg-gradient-to-r from-[#E41E6A] to-[#C01854] hover:from-[#C01854] hover:to-[#E41E6A] text-white px-8 py-6 shadow-2xl shadow-[#E41E6A]/50 transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-[#E41E6A] to-[#C01854] hover:from-[#C01854] hover:to-[#E41E6A] text-white px-8 py-3 rounded-lg shadow-lg shadow-[#E41E6A]/50 transition-all duration-300 hover:scale-105 flex items-center justify-center"
             >
               Book This Setup
             </Button>
