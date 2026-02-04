@@ -7,11 +7,22 @@ export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
+    console.log("scrollToSection called:", sectionId);
     const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
-    }
+    console.log("scrollToSection found element:", element);
+
+    // Close mobile menu immediately so it doesn't block clicks/layout
+    setIsMenuOpen(false);
+
+    if (!element) return;
+
+    // Wait for menu close animation/layout to settle, then scroll with offset
+    setTimeout(() => {
+      const navEl = document.querySelector("nav");
+      const navHeight = navEl ? Math.round(navEl.getBoundingClientRect().height) : 80;
+      const targetTop = element.getBoundingClientRect().top + window.pageYOffset - navHeight - 8;
+      window.scrollTo({ top: targetTop, behavior: "smooth" });
+    }, 220);
   };
 
   const menuItems = [

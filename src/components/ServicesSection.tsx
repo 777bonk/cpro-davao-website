@@ -45,7 +45,7 @@ export function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-b from-[#0A0A0A] to-[#0f0f0f] relative overflow-hidden">
+    <section id="services" className="scroll-mt-20 py-24 bg-gradient-to-b from-[#0A0A0A] to-[#0f0f0f] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

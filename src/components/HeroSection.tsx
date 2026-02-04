@@ -23,7 +23,7 @@ export function HeroSection() {
   };
 
   return (
-    <section id="home" className="relative h-screen overflow-hidden">
+    <section id="home" className="scroll-mt-20 relative h-screen overflow-hidden">
       {/* Background Image with Parallax */}
       <div
         className="absolute inset-0 bg-cover bg-center"

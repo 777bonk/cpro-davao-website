@@ -80,7 +80,7 @@ export function PackagesSection() {
   ];
 
   return (
-    <section id="packages" className="py-24 bg-[#0A0A0A] relative overflow-hidden">
+    <section id="packages" className="scroll-mt-20 py-24 bg-[#0A0A0A] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
