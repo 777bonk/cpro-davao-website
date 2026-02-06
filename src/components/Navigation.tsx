@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import LoginModal from "./LoginModal";
 
-export function Navigation() {
+export function Navigation({ onNavigateToLogin }: { onNavigateToLogin?: () => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     console.log("scrollToSection called:", sectionId);
@@ -58,6 +60,13 @@ export function Navigation() {
                 {item.label}
               </button>
             ))}
+<Button
+  onClick={() => onNavigateToLogin?.()}
+  className="bg-black border border-white/10 text-white"
+>
+  Sign Up / Login
+</Button>
+
             <Button
               onClick={() => scrollToSection("quote")}
               className="bg-gradient-to-r from-[#E41E6A] to-[#C01854] hover:from-[#C01854] hover:to-[#E41E6A] text-white shadow-lg shadow-[#E41E6A]/50 transition-all duration-300"
@@ -97,6 +106,14 @@ export function Navigation() {
                   {item.label}
                 </button>
               ))}
+<Button
+  onClick={() => onNavigateToLogin?.()}
+  className="bg-black border border-white/10 text-white"
+>
+  Sign Up / Login
+</Button>
+
+
               <Button
                 onClick={() => scrollToSection("quote")}
                 className="w-full bg-gradient-to-r from-[#E41E6A] to-[#C01854] hover:from-[#C01854] hover:to-[#E41E6A] text-white shadow-lg shadow-[#E41E6A]/50"
@@ -107,6 +124,11 @@ export function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
+          <LoginModal
+      isOpen={isLoginOpen}
+      onClose={() => setIsLoginOpen(false)}
+    />
+
     </nav>
   );
 }

@@ -50,7 +50,7 @@ export function AboutSection() {
           >
             <div className="relative overflow-hidden rounded-lg">
               <img
-                src="https://images.unsplash.com/photo-1656876135194-9f40610bd58a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXIlMjBkZXRhaWxpbmclMjBzaG9wfGVufDF8fHx8MTc2MTIwODMyMHww&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/charger.jpg"
                 alt="Ceramic Pro Davao Shop"
                 className="w-full h-[500px] object-cover"
               />

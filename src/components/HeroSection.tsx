@@ -28,7 +28,7 @@ export function HeroSection() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1695029502107-9fd205276f1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjYXIlMjBnbG9zc3klMjBjZXJhbWljJTIwY29hdGluZ3xlbnwxfHx8fDE3NjEyMDgzMTl8MA&ixlib=rb-4.1.0&q=80&w=1080')`,
+          backgroundImage: `url('/civic.jpeg')`,
           transform: `translateY(${scrollY * 0.5}px)`,
         }}
       >
